@@ -9,7 +9,7 @@ export const metadata = {
 
   title: {
     default: "Luxaeon Spaces | Interior Design Studio",
-    template: "%s | Luxaeon Spaces",
+    template: "%s || Luxaeon Spaces",
   },
 
   description:
