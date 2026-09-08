@@ -1,41 +1,104 @@
 "use client";
 
+import { useActionState } from "react";
+import { createLead } from "../_lib/cta-actions";
+import SubmitButton from "./SubmitButton";
+
+const initialState = {
+  success: false,
+  errors: {},
+  message: "",
+};
+
 function CtaForm() {
-    return (
-             <form
-            className="home_cta-form flex-col"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <label className="visually-hidden" htmlFor="name">
-              Name
-            </label>
-            <input id="name" name="name" type="text" placeholder="Your name" />
+  const [state, formAction] = useActionState(
+    createLead,
+    initialState
+  );
 
-            <label className="visually-hidden" htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Your email"
-            />
+  return (
+    <form
+      className="home_cta-form flex-col"
+      action={formAction}
+    >
+      <label className="visually-hidden" htmlFor="name">
+        Name
+      </label>
 
-            <label className="visually-hidden" htmlFor="message">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Tell us about your project"
-              rows={4}
-            />
+      <input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Your Full name*"
+        required
+      />
 
-            <button type="submit" className="btn btn--inverted">
-              Get in touch
-            </button>
-          </form>
-    )
+      {state?.errors?.fullName && (
+        <p className="form-error">
+          {state.errors.fullName[0]}
+        </p>
+      )}
+
+      <label className="visually-hidden" htmlFor="email">
+        Email
+      </label>
+
+      <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Your Email*"
+        required
+      />
+
+      {state?.errors?.email && (
+        <p className="form-error">
+          {state.errors.email[0]}
+        </p>
+      )}
+
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        placeholder="Your Phone number*"
+        required
+      />
+
+      {state?.errors?.phone && (
+        <p className="form-error">
+          {state.errors.phone[0]}
+        </p>
+      )}
+
+      <textarea
+        id="message"
+        name="message"
+        placeholder="Tell us about your project"
+        rows={4}
+      />
+
+      {state?.errors?.message && (
+        <p className="form-error">
+          {state.errors.message[0]}
+        </p>
+      )}
+
+      {state?.message && (
+        <p className="form-error">
+          {state.message}
+        </p>
+      )}
+
+      {state?.success && (
+        <p className="form-success">
+          Thanks, we'll be in touch shortly.
+        </p>
+      )}
+
+      <SubmitButton />
+    </form>
+  );
 }
 
-export default CtaForm
+export default CtaForm;
