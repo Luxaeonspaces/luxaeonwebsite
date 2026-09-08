@@ -3,9 +3,9 @@ import CTA from "../_components/CTA";
 import JournalGrid from "./_sections/JournalGrid";
 
 export const metadata = {
-  title: "Journal — Luxaeon Spaces",
+  title: "Journals",
   description:
-    "Ideas, insights, and stories on interior design and everyday living from the Modulor studio.",
+    "Ideas, insights, and perspectives on interior design, architecture, materials, and everyday living from Luxaeon Spaces.",
 };
 
 export default function page() {

@@ -6,6 +6,12 @@ import Leadership from "./_sections/Leadership";
 import OurStory from "./_sections/OurStory";
 import Promise from "./_sections/Promise";
 
+export const metadata = {
+  title: "About",
+  description:
+    "Discover Luxaeon Spaces, our design philosophy, approach, and the people behind our contemporary interior design work.",
+};
+
 function page() {
   return (
     <>

@@ -8,6 +8,7 @@ import KeyFeatures from "./_sections/KeyFeatures";
 import Callout from "./_sections/Callout";
 import MaterialPalette from "./_sections/MaterialPalette";
 import MoreProjects from "./_sections/MoreProjects";
+import JsonLd from "@/app/_components/JsonLd";
 
 export function generateStaticParams() {
   return PROJECT_DETAILS.map((project) => ({ slug: project.slug }));
@@ -15,11 +16,36 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const project = PROJECT_DETAILS.find((p) => p.slug === slug);
-  if (!project) return {};
+
+  const project = PROJECT_DETAILS.find((project) => project.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Projects",
+      description:
+        "Explore selected interior design p rojects by Luxaeon Spaces.",
+    };
+  }
+
   return {
-    title: `${project.title} | Luxaeon Spaces`,
-    description: project.tagline,
+    title: project.title,
+    description: project.description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      type: "website",
+      images: project.heroImage
+        ? [
+            {
+              url: project.heroImage,
+              alt: project.title,
+            },
+          ]
+        : undefined,
+    },
   };
 }
 
@@ -30,6 +56,20 @@ export default async function page({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: project.title,
+          description: project.description,
+          image: `https://luxaeonspaces.com${project.heroImage}`,
+          url: `https://luxaeonspaces.com/projects/${project.slug}`,
+          creator: {
+            "@type": "Organization",
+            name: "Luxaeon Spaces",
+          },
+        }}
+      />
       <ProjectHero
         title={project.title}
         service={project.service}
@@ -45,7 +85,7 @@ export default async function page({ params }) {
         label={project.secondSection.label}
         body={project.secondSection.body}
       />
-      <Gallery images={project?.galleryTwo} title={project.title}/>
+      <Gallery images={project?.galleryTwo} title={project.title} />
 
       <TextBlock label={"approach"} body={project.approach} />
 
@@ -59,7 +99,7 @@ export default async function page({ params }) {
 
       <MaterialPalette palette={project.materialPalette} />
 
-      <Gallery images={project?.galleryThree} title={project.title}/>
+      <Gallery images={project?.galleryThree} title={project.title} />
 
       <TextBlock label={project.closing.label} body={project.closing.body} />
 
