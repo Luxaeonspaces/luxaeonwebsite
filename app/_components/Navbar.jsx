@@ -9,8 +9,8 @@ const NAV_LINKS = [
   // { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/journal", label: "Journal" },
-  // { href: "/contact", label: "Contact" },
+  { href: "/portal", label: "Portal" },
+  { href: "/journal", label: "Journals" },
 ];
 
 function Navbar() {
@@ -73,7 +73,7 @@ function Navbar() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                  <Link href="/"   onClick={() => setOpen(false)}>
+                  <Link href="/" onClick={() => setOpen(false)}>
                     <Image
                       src={"/logo2.png"}
                       alt="Luxaeon Spaces"
