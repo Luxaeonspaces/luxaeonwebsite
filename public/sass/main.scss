@@ -44,6 +44,9 @@
 @use "./sections/journal/journal-list-grid";
 
 
+@use "./sections/portal/portal"
+
+
 
 // Sections are @used from within their own page's stylesheet
 // (e.g. sections/home/main.scss), not aggregated here.

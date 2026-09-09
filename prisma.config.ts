@@ -5,6 +5,6 @@ export default defineConfig({
   schema: 'prisma/schema.prisma',
   migrations: { path: 'prisma/migrations' },
   datasource: {
-    url: env('DIRECT_URL'), // Neon's direct (non-pooled) connection, used for migrations
+    url: env('DIRECT_URL'), // Supabase's direct (non-pooled) connection, used for migrations
   },
 });
