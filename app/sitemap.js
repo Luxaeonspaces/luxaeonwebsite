@@ -23,13 +23,15 @@ export default function sitemap() {
     lastModified: new Date(post.date).toISOString(),
   }));
 
-  return [
-    ...staticPages.map((page) => ({
-      url: `${BASE_URL}${page}`,
-      lastModified: new Date(),
-    })),
+    const pages = [
+      ...staticPages.map((page) => ({
+        url: `${BASE_URL}${page}`,
+        lastModified: new Date().toISOString(),
+      })),
 
-    ...projectPages,
-    ...journalPages,
-  ];
+      ...projectPages,
+      ...journalPages,
+    ];
+
+    return pages.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
 }
